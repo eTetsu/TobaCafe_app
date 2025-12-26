@@ -186,7 +186,10 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 
 
 ## 画面遷移図
-（画像やリンクを追加予定）
+Figma TobaCafe_project
+(https://www.figma.com/design/EDZEe1kAcfDyxpWLzk9tTf/TobaCafe_project?node-id=0-1&t=mfAJ3zthFUNEdLT0-1)
+
+![TobaCafe_project](https://gyazo.com/33ad3ace900cc43311a33a8d80468583)
 
 
 ## ER図
