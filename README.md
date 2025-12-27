@@ -177,23 +177,93 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 
 
 ## 主要なテーブル設計
-- users（ユーザー情報）
-- boards（カフェ情報）
-- reviews（レビュー）
------ 以下は本リリース時に実装予定 ----
-- likes（いいね）
-- wishlists（行ってみたい）
+1. usersテーブル
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| id | bigint | PK | |
+| email | string | NOT NULL, UNIQUE | ログイン用 |
+| password_digest | string | NOT NULL | 暗号化パスワード |
+| nickname | string | NOT NULL | プロフィール表示用 |
+| created_at | datetime | | |
+| updated_at | datetime | | |
 
+インデックス: email
+
+2. boardsテーブル
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| id | bigint | PK | |
+| user_id | bigint | FK, NOT NULL | 登録者 |
+| name | string | NOT NULL | 店舗名 |
+| address | string | NOT NULL | 住所 |
+| nearest_station | string | | 最寄り駅 |
+| opening_hours | text | | 営業時間 |
+| coffee_price | integer | | コーヒー価格（円） |
+| seat_count | integer | | 席数 |
+| smoking_policy | integer | NOT NULL | 0:喫煙スペース, 1:分煙テーブル（enum） |
+| created_at | datetime | | |
+| updated_at | datetime | | |
+
+インデックス: user_id, nearest_station
+
+3. reviewsテーブル
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| id | bigint | PK | |
+| user_id | bigint | FK, NOT NULL | レビュー投稿者 |
+| board_id | bigint | FK, NOT NULL | 対象カフェ |
+| workability_rating | integer | NOT NULL | 作業しやすさ（1-5） |
+| comment | text | | コメント |
+| created_at | datetime | | |
+| updated_at | datetime | | |
+
+インデックス: user_id, cafe_id
+複合ユニークインデックス: [user_id, cafe_id]（1ユーザー1カフェ1レビューの場合）
+
+----- 本リリース時に実装 -----
+
+4. likesテーブル（中間テーブル）
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| id | bigint | PK | |
+| user_id | bigint | FK, NOT NULL | いいねしたユーザー |
+| board_id | bigint | FK, NOT NULL | いいねされたカフェ |
+| created_at | datetime | | |
+| updated_at | datetime | | |
+
+複合ユニークインデックス: [user_id, cafe_id]（重複いいね防止）
+インデックス: cafe_id
+
+5. bookmarksテーブル（中間テーブル）
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| id | bigint | PK | |
+| user_id | bigint | FK, NOT NULL | 登録したユーザー |
+| board_id | bigint | FK, NOT NULL | 行きたいカフェ |
+| created_at | datetime | | |
+| updated_at | datetime | | |
+
+複合ユニークインデックス: [user_id, cafe_id]（重複登録防止）
+インデックス: cafe_id
+
+boardsテーブルに以下のカラムを追加:
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| has_wifi | boolean | default: false | Wi-Fi有無 |
+| has_power_outlet | boolean | default: false | 電源有無 |
+
+usersテーブルに以下のカラムを追加:
+| カラム名 | 型 | 制約 | 説明 |
+|---------|-----|------|------|
+| role | integer | NOT NULL, default: 0 | 0:一般ユーザー, 1:管理者（enum） |
 
 ## 画面遷移図
 Figma TobaCafe_project
-(https://www.figma.com/design/EDZEe1kAcfDyxpWLzk9tTf/TobaCafe_project?node-id=0-1&t=mfAJ3zthFUNEdLT0-1)
-
-![TobaCafe_project](https://gyazo.com/33ad3ace900cc43311a33a8d80468583)
+https://www.figma.com/design/EDZEe1kAcfDyxpWLzk9tTf/TobaCafe_project?node-id=0-1&t=mfAJ3zthFUNEdLT0-1
 
 
 ## ER図
-（画像やリンクを追加予定）
+![TobaCafe_project](https://gyazo.com/def33e0d5b35e711b5ac694db644adce)
 
 
 ## 開発スケジュール
@@ -210,7 +280,8 @@ Figma TobaCafe_project
 
 
 ## 今後の拡張予定（MVP後）
-- お気に入り機能
+- いいね機能
+- 行ってみたい機能
 - 地図表示機能
 - 管理者機能
 - SNS連携（Xでのシェア機能）
