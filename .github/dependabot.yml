@@ -1,12 +1,19 @@
 version: 2
 updates:
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  # Bundler（Ruby/Rails）の設定
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "monthly"  # 月1回のチェックに変更
+    open-pull-requests-limit: 3
+    ignore:
+      # Railsのメジャーバージョンアップを無視
+      - dependency-name: "rails"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actionsの設定
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
