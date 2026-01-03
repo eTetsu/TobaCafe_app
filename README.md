@@ -118,12 +118,13 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 
 1. 開発環境: Docker
 2. フレームワーク
-  Ruby on Rails 7.0系（最新の安定版を使用）
-  Ruby 3.2系を使用
+  Ruby on Rails 7.2系（最新の安定版を使用）
+  Ruby 3.3系を使用
   Hotwire（Turbo・Stimulus）を活用し、ページ遷移を高速化
   基本的なCRUD操作はRailsの規約に沿って実装
 3. データベース
-  PostgreSQL: Renderでの運用実績が豊富で、本番環境との互換性が高い
+  PostgreSQL:16系を使用
+  Renderでの運用実績が豊富で、本番環境との互換性が高い
 4. デプロイ先
   Render: 無料枠でPostgreSQLが使用でき、Herokuの代替として安定性が高い。また、自動デプロイ設定が簡単
 5. 使用予定のGem（ライブラリ）
@@ -139,9 +140,14 @@ MVPリリース後のカフェデータの収集について、基本的に自�
       エリア・価格帯・分煙などでの絞り込み
       並び替え機能も簡単に実装可能
   コード品質管理機能
-    - RuboCop（コードの静的解析、Lintチェック）
+    - rubocop-rails-omakase（コードの静的解析、Lintチェック）
       コードスタイルを統一
       バグの早期発見
+        開発時の使い方
+          コード作成後にチェック
+          "docker compose exec web bundle exec rubocop"
+          自動修正を実行
+          "docker compose exec web bundle exec rubocop -A"
   (画像アップロード機能
     - ActiveStorage（Railsの標準機能）
       カフェの写真やユーザーアイコンのアップロード)

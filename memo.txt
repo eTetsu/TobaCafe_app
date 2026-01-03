@@ -147,3 +147,8 @@ MVPで必要なテーブル（参考）
     コードスタイルを統一
     バグの早期発見
 
+docker開発
+Ruby 3.3.6
+Rails 7.2.3
+PostgreSQL 16.8
+Renderデプロイ
