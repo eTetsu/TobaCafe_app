@@ -3,3 +3,41 @@ Ruby 3.3.6
 Rails 7.2.3
 PostgreSQL 16.8
 Renderデプロイ
+
+# Rubocopチェック実行
+docker compose exec web bundle exec rubocop
+
+# 自動修正
+docker compose exec web bundle exec rubocop -A
+
+# 全てのRspec実行
+docker compose exec web bundle exec rspec
+
+# 特定のファイルを実行
+docker compose exec web bundle exec rspec spec/models/###
+
+# 特定の行のテストを実行
+docker compose exec web bundle exec rspec spec/models/###:行数
+
+# よく使うDockerコマンドまとめ
+  - bundle install系
+    # コンテナ起動中
+    docker compose exec web bundle install
+
+  - Rails generator系
+    # モデル生成
+    docker compose exec web rails g model User
+    # コントローラー生成
+    docker compose exec rails g controller Users
+    # Sorceryインストール
+    docker compose exec web rails g sorcery:install
+
+  - マイグレーション系
+    docker compose exec web rails db:migrate
+    docker compose exec web rails db:rollback
+    docker compose exec web rails db:reset
+
+  - Railsコンソール
+    docker compose exec web bin/rails console
+    # または
+    docker compose exec web bundle exec rails console
