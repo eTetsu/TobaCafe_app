@@ -223,8 +223,8 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 | created_at | datetime | | |
 | updated_at | datetime | | |
 
-インデックス: user_id, cafe_id
-複合ユニークインデックス: [user_id, cafe_id]（1ユーザー1カフェ1レビューの場合）
+インデックス: user_id, board_id
+複合ユニークインデックス: [user_id, board_id]（1ユーザー1カフェ1レビューの場合）
 
 ----- 本リリース時に実装 -----
 
@@ -237,8 +237,8 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 | created_at | datetime | | |
 | updated_at | datetime | | |
 
-複合ユニークインデックス: [user_id, cafe_id]（重複いいね防止）
-インデックス: cafe_id
+複合ユニークインデックス: [user_id, board_id]（重複いいね防止）
+インデックス: board_id
 
 5. bookmarksテーブル（中間テーブル）
 | カラム名 | 型 | 制約 | 説明 |
@@ -249,8 +249,8 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 | created_at | datetime | | |
 | updated_at | datetime | | |
 
-複合ユニークインデックス: [user_id, cafe_id]（重複登録防止）
-インデックス: cafe_id
+複合ユニークインデックス: [user_id, board_id]（重複登録防止）
+インデックス: board_id
 
 boardsテーブルに以下のカラムを追加:
 | カラム名 | 型 | 制約 | 説明 |
