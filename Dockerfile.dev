@@ -1,0 +1,63 @@
+# syntax = docker/dockerfile:1
+
+# Ruby 3.3.6をベースイメージとして使用
+FROM ruby:3.3.6
+
+# 環境変数の設定
+ENV LANG=C.UTF-8 \
+    TZ=Asia/Tokyo \
+    RAILS_ENV=development
+
+# 作業ディレクトリの設定
+WORKDIR /app
+
+# 必要なパッケージのインストール
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      # 基本ツール
+      ca-certificates \
+      curl \
+      gnupg \
+      # PostgreSQLクライアント
+      postgresql-client \
+      # エディタ
+      vim \
+      nano \
+      # その他
+      git \
+      build-essential \
+      libyaml-dev \
+      libvips \
+    && rm -rf /var/lib/apt/lists/*
+
+# Node.js 20.x のインストール（Rails 7.2.3に対応）
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g yarn && \
+    rm -rf /var/lib/apt/lists/*
+
+# ユーザーとグループの作成
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
+
+# 必要なディレクトリを作成
+RUN mkdir -p db log storage tmp
+
+# アプリケーションディレクトリ全体の所有権を変更
+RUN chown -R rails:rails /app
+
+# Gemfileをコピーしてbundle install
+COPY --chown=rails:rails Gemfile Gemfile.lock ./
+RUN bundle install
+
+# アプリケーションコードをコピー
+COPY --chown=rails:rails . .
+
+# railsユーザーに切り替え
+USER rails
+
+# ポートを公開
+EXPOSE 3000
+
+# デフォルトコマンド
+CMD ["bash"]
