@@ -22,7 +22,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev  # 開発用Dockerfileを指定
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     restart: unless-stopped  # 手動停止以外は自動再起動
     tty: true
     stdin_open: true
