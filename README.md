@@ -269,7 +269,7 @@ https://www.figma.com/design/EDZEe1kAcfDyxpWLzk9tTf/TobaCafe_project?node-id=0-1
 
 
 ## ER図
-[![TobaCafe_project](https://i.gyazo.com/def33e0d5b35e711b5ac694db644adce.png)](https://gyazo.com/def33e0d5b35e711b5ac694db644adce)
+[![TobaCafe_project.drawio - draw.io](https://i.gyazo.com/bde35b2d597d00a8de639a077813e83f.png)](https://gyazo.com/bde35b2d597d00a8de639a077813e83f)
 
 ## 開発スケジュール
 - 12月29日〜1月31日: 環境構築・基本設計
