@@ -188,7 +188,8 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 |---------|-----|------|------|
 | id | bigint | PK | |
 | email | string | NOT NULL, UNIQUE | ログイン用 |
-| password_digest | string | NOT NULL | 暗号化パスワード |
+| crypted_password | string | NOT NULL | 暗号化強度を高めるランダム文字列 |
+| salt | string | NOT NULL | 暗号化パスワード |
 | nickname | string | NOT NULL | プロフィール表示用 |
 | created_at | datetime | | |
 | updated_at | datetime | | |
@@ -269,7 +270,7 @@ https://www.figma.com/design/EDZEe1kAcfDyxpWLzk9tTf/TobaCafe_project?node-id=0-1
 
 
 ## ER図
-[![TobaCafe_project](https://i.gyazo.com/def33e0d5b35e711b5ac694db644adce.png)](https://gyazo.com/def33e0d5b35e711b5ac694db644adce)
+[![TobaCafe_project.drawio - draw.io](https://i.gyazo.com/bde35b2d597d00a8de639a077813e83f.png)](https://gyazo.com/bde35b2d597d00a8de639a077813e83f)
 
 ## 開発スケジュール
 - 12月29日〜1月31日: 環境構築・基本設計

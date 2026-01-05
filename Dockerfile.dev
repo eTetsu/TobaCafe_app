@@ -46,15 +46,15 @@ RUN mkdir -p db log storage tmp
 # アプリケーションディレクトリ全体の所有権を変更
 RUN chown -R rails:rails /app
 
-# Gemfileをコピーしてbundle install
+# Gemfileをコピー
 COPY --chown=rails:rails Gemfile Gemfile.lock ./
+
+# railsユーザーに切り替えてからbundle install
+USER rails
 RUN bundle install
 
 # アプリケーションコードをコピー
 COPY --chown=rails:rails . .
-
-# railsユーザーに切り替え
-USER rails
 
 # ポートを公開
 EXPOSE 3000
