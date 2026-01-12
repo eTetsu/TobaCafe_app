@@ -188,8 +188,8 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 |---------|-----|------|------|
 | id | bigint | PK | |
 | email | string | NOT NULL, UNIQUE | ログイン用 |
-| crypted_password | string | NOT NULL | 暗号化強度を高めるランダム文字列 |
-| salt | string | NOT NULL | 暗号化パスワード |
+| crypted_password | string | NOT NULL | 暗号化パスワード |
+| salt | string | NOT NULL | 暗号化強度を高めるランダム文字列 |
 | nickname | string | NOT NULL | プロフィール表示用 |
 | created_at | datetime | | |
 | updated_at | datetime | | |
