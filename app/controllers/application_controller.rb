@@ -3,4 +3,12 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   add_flash_types :success, :danger
+
+  before_action :require_login
+
+  private
+
+  def not_authenticated
+    redirect_to root_path, alert: "ログインしてください。"
+  end
 end
