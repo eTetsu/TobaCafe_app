@@ -1,5 +1,5 @@
 <header>
-  <nav class='navbar navbar-expand-lg navigation navbar-dark bg-secondary'>
+  <nav class='navbar navbar-expand-lg navigation navbar-dark bg-custom-gray'>
     <%= link_to 'TobaCafe', root_path, class: 'navbar-brand' %>
     
     <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent'
@@ -10,19 +10,10 @@
     <div class='collapse navbar-collapse' id='navbarSupportedContent'>
       <ul class='navbar-nav ms-auto main-nav align-items-center'>
         <li class='nav-item'>
-          <%= link_to 'カフェ一覧', '#', class: 'nav-link' %>
+          <%= link_to '新規登録', new_user_path, class: 'btn btn-success me-2' %>
         </li>
-        
         <li class='nav-item'>
-          <%= link_to '行ってみたい一覧', '#', class: 'nav-link' %>
-        </li>
-        
-        <li class='nav-item'>
-          <%= link_to 'いいね一覧', '#', class: 'nav-link' %>
-        </li>
-        
-        <li class='nav-item'>
-          <%= link_to 'ログアウト', '#', data: { turbo_method: :delete }, class: 'btn btn-outline-danger' %>
+          <%= link_to 'ログイン', '#', class: 'btn btn-primary' %>
         </li>
       </ul>
     </div>
