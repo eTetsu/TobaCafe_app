@@ -10,45 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_05_201638) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_13_143834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "address"
-    t.string "nearest_station"
+    t.string "title", null: false
+    t.string "address", null: false
+    t.string "nearest_station", null: false
+    t.integer "walking_time", null: false
     t.text "opening_hours"
-    t.integer "coffe_price"
-    t.integer "seat_count"
-    t.integer "smorking_policy"
+    t.integer "small_coffee_price", null: false
+    t.integer "seat_capacity", null: false
+    t.integer "floor_level", null: false
+    t.integer "smoking_policy", null: false
+    t.string "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["nearest_station"], name: "index_boards_on_nearest_station"
     t.index ["user_id"], name: "index_boards_on_user_id"
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "board_id", null: false
-    t.integer "workability_rating"
-    t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["board_id"], name: "index_reviews_on_board_id"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string "email"
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
     t.string "nickname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "crypted_password"
-    t.string "salt"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "boards", "users"
-  add_foreign_key "reviews", "boards"
-  add_foreign_key "reviews", "users"
 end

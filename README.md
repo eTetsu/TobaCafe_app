@@ -201,15 +201,18 @@ MVPリリース後のカフェデータの収集について、基本的に自�
 |---------|-----|------|------|
 | id | bigint | PK | |
 | user_id | bigint | FK, NOT NULL | 登録者 |
-| name | string | NOT NULL | 店舗名 |
+| title | string | NOT NULL | 店舗名 |
 | address | string | NOT NULL | 住所 |
-| nearest_station | string | | 最寄り駅 |
+| nearest_station | string | NOT NULL | 最寄り駅 |
+| walking_time | integer | NOT NULL | 徒歩時間（分） |
 | opening_hours | text | | 営業時間 |
-| coffee_price | integer | | コーヒー価格（円） |
-| seat_count | integer | | 席数 |
-| smoking_policy | integer | NOT NULL | 0:喫煙スペース, 1:分煙テーブル（enum） |
-| created_at | datetime | | |
-| updated_at | datetime | | |
+| small_coffee_price | integer | NOT NULL | コーヒー価格（円） |
+| seat_capacity | integer | NOT NULL | 席数 |
+| floor_level | integer | NOT NULL | 階数 |
+| smoking_policy | integer | NOT NULL | 喫煙ポリシー（enum） |
+| website_url | string | | ウェブサイトURL |
+| created_at | datetime | NOT NULL | |
+| updated_at | datetime | NOT NULL | |
 
 インデックス: user_id, nearest_station
 

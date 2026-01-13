@@ -17,6 +17,23 @@ ja:
     new:
       title: ユーザー登録
       to_login_page: ログインページへ
+  boards:
+    index:
+      title: カフェ一覧
+      new_board: 新規カフェ登録
+      no_boards: カフェが登録されていません
+    show:
+      title: カフェ詳細
+      edit: 編集
+      delete: 削除
+      confirm_delete: 本当に削除しますか?
+    new:
+      title: カフェ新規登録
+    edit:
+      title: カフェ情報編集
+    form:
+      submit: 登録
+      update: 更新
   header:
     app: TobaCafe
     user_registration: 新規登録 
