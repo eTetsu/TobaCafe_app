@@ -1,0 +1,35 @@
+ja:
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新
+    label:
+      email: メールアドレス
+      password: パスワード
+  user_sessions:
+    new:
+      title: ユーザー登録
+      login: ログイン
+      to_register_page: 新規登録ページへ
+      password_forget: パスワードをお忘れの方はこちら
+  users:
+    new:
+      title: ユーザー登録
+      to_login_page: ログインページへ
+  header:
+    app: TobaCafe
+    user_registration: 新規登録 
+    login: ログイン
+    logout: ログアウト
+    borad: カフェ
+    board_index: カフェ一覧
+    bookmark: 行ってみたい
+    bookmark_index: 行ってみたい一覧
+    like: いいね
+    like_index: いいね一覧
+  footer:
+    app: TobaCafe APP
+    terms_of_service: 利用規約
+    privacy_policy: プライバシーポリシー
+    contact: お問い合わせ

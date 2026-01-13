@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      board: カフェ
+    attributes:
+      user:
+        email: メールアドレス
+        nickname: ニックネーム
+        password: パスワード
+        password_confirmation: パスワード確認
