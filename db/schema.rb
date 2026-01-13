@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_13_143834) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_13_164642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,13 +19,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_13_143834) do
     t.string "title", null: false
     t.string "address", null: false
     t.string "nearest_station", null: false
-    t.integer "walking_time", null: false
     t.text "opening_hours"
-    t.integer "small_coffee_price", null: false
-    t.integer "seat_capacity", null: false
-    t.integer "floor_level", null: false
     t.integer "smoking_policy", null: false
-    t.string "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["nearest_station"], name: "index_boards_on_nearest_station"
