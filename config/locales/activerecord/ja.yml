@@ -27,8 +27,8 @@ ja:
     board:
       smoking_policy:
         smoking_room: 喫煙所あり
-        separate_smoking: 分煙席
-        all_smoking_allowed: 全席喫煙可
+        separate_smoking: 分煙
+        all_smoking_allowed: 全席喫煙可能
       seat_capacity:
         small: 小規模(1-20席)
         medium: 中規模(21-50席)
