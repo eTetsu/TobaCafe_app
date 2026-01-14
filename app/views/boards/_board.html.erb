@@ -1,0 +1,37 @@
+<div class="col-md-6 mb-3">
+  <div class="card h-100 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to board.title, '#', class: "text-decoration-none" %>
+      </h5>
+
+      <small class="text-muted d-block mb-3">
+        <%= t('.poster') %>: <%= board.user.nickname %>
+      </small>
+
+      <ul class="list-unstyled mb-3">
+        <li class="mb-2">
+          <strong><%= t('.address') %>:</strong> <%= board.address %>
+        </li>
+        <li class="mb-2">
+          <strong><%= t('.nearest_station') %>:</strong> <%= board.nearest_station %>
+        </li>
+        <li class="mb-2">
+          <strong><%= t('.opening_hours') %>:</strong> <%= board.opening_hours.presence || "未設定" %>
+        </li>
+        <li class="mb-2">
+          <strong><%= t('.smoking') %>:</strong> 
+          <span class="badge bg-secondary">
+            <%= board.smoking_policy_i18n %>
+          </span>
+        </li>
+      </ul>
+
+      <%= link_to t('.show_details'), '#', class: "btn btn-outline-primary btn-sm w-100" %>
+    </div>
+
+    <div class="card-footer text-muted">
+      <small><%= l board.created_at, format: :short %></small>
+    </div>
+  </div>
+</div>

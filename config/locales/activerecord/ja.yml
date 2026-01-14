@@ -1,0 +1,43 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      board: カフェ
+    attributes:
+      user:
+        email: メールアドレス
+        nickname: ニックネーム
+        password: パスワード
+        password_confirmation: パスワード確認
+      board:
+        title: カフェ名
+        address: 住所
+        nearest_station: 最寄り駅
+        walking_time: 駅からの所要時間
+        opening_hours: 営業時間
+        small_coffee_price: コーヒーSサイズの価格
+        seat_capacity: 席数
+        floor_level: フロア数
+        smoking_policy: 喫煙可否
+        website_url: ウェブサイトURL
+        user: 投稿者
+        created_at: 登録日時
+        updated_at: 更新日時
+  enums:
+    board:
+      smoking_policy:
+        smoking_room: 喫煙所あり
+        separate_smoking: 分煙席
+        all_smoking_allowed: 全席喫煙可
+      seat_capacity:
+        small: 小規模(1-20席)
+        medium: 中規模(21-50席)
+        large: 大規模(51席以上)
+      floor_level:
+        first_floor: 1階
+        second_floor: 2階
+        over_third_floor: 3階以上
+      walking_time:
+        within_5min: 徒歩5分以内
+        within_10min: 徒歩10分以内
+        over_10min: 徒歩10分以上

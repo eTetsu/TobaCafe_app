@@ -1,1 +1,18 @@
-<p>Hello, World!</p>
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="mb-3"><%= t('.title') %></h1>
+      <p class="text-muted"><%= t('.board_count_info', count: @boards.count) %></p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <% if @boards.present? %>
+      <%= render @boards %>
+    <% else %>
+      <div class="col-12">
+        <div class="alert alert-info"><%= t('.no_boards') %></div>
+      </div>
+    <% end %>
+  </div>
+</div>
