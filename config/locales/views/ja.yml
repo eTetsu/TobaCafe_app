@@ -7,11 +7,13 @@ ja:
     label:
       email: メールアドレス
       password: パスワード
+    select:
+      prompt: 選択してください
   user_sessions:
     new:
       title: ユーザー登録
       login: ログイン
-      to_register_page: 新規登録ページへ
+      to_register_page: ユーザー登録ページへ
       password_forget: パスワードをお忘れの方はこちら
   users:
     new:
@@ -36,7 +38,13 @@ ja:
       delete: 削除
       confirm_delete: 本当に削除しますか?
     new:
-      title: カフェ新規登録
+      add_board_page: カフェ登録
+      title: カフェ名
+      address: 住所
+      nearest_station: 最寄駅
+      opening_hours: 営業時間
+      smoking_policy: 喫煙形態
+      back_to_index: カフェ一覧に戻る
     edit:
       title: カフェ情報編集
     form:
