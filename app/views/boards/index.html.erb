@@ -8,7 +8,7 @@
 
   <div class="row g-4">
     <% if @boards.present? %>
-      <%= render @boards %>
+      <%= render partial: 'board', collection: @boards %>
     <% else %>
       <div class="col-12">
         <div class="alert alert-info"><%= t('.no_boards') %></div>
