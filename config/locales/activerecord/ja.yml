@@ -23,21 +23,21 @@ ja:
         user: 投稿者
         created_at: 登録日時
         updated_at: 更新日時
-    enums:
-      board:
-        smoking_policy:
-          smoking_room: 喫煙スペース
-          separate_smoking: 分煙
-          all_smoking_allowed: 全席喫煙可
-        seat_capacity:
-          small: 小規模(1-20席)
-          medium: 中規模(21-50席)
-          large: 大規模(51席以上)
-        floor_level:
-          first_floor: 1階
-          second_floor: 2階
-          over_third_floor: 3階以上
-        walking_time:
-          within_5min: 徒歩5分以内
-          within_10min: 徒歩10分以内
-          over_10min: 徒歩10分以上
+  enums:
+    board:
+      smoking_policy:
+        smoking_room: 喫煙所あり
+        separate_smoking: 分煙席
+        all_smoking_allowed: 全席喫煙可
+      seat_capacity:
+        small: 小規模(1-20席)
+        medium: 中規模(21-50席)
+        large: 大規模(51席以上)
+      floor_level:
+        first_floor: 1階
+        second_floor: 2階
+        over_third_floor: 3階以上
+      walking_time:
+        within_5min: 徒歩5分以内
+        within_10min: 徒歩10分以内
+        over_10min: 徒歩10分以上

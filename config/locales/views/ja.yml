@@ -18,10 +18,18 @@ ja:
       title: ユーザー登録
       to_login_page: ログインページへ
   boards:
+    board:
+      poster: 投稿者
+      address: 住所
+      nearest_station: 最寄駅
+      opening_hours: 営業時間
+      smoking: 喫煙
+      show_details: 詳細を見る
     index:
       title: カフェ一覧
       new_board: 新規カフェ登録
       no_boards: カフェが登録されていません
+      board_count_info: "%{count}件のカフェ"
     show:
       title: カフェ詳細
       edit: 編集
