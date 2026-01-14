@@ -38,6 +38,8 @@ gem "sassc-rails"
 gem "sorcery", "~> 0.17.0"
 gem "rails-i18n"
 gem "enum_help", "0.0.19"
+gem "kaminari"
+gem "bootstrap5-kaminari-views"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
