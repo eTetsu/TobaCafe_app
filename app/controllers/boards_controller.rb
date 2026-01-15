@@ -5,6 +5,10 @@ class BoardsController < ApplicationController
     @boards = Board.includes(:user).order(created_at: :desc).page(params[:page])
   end
 
+  def show
+    @board = Board.includes(:user).find(params[:id])
+  end
+
   def new
     @board = Board.new
   end
