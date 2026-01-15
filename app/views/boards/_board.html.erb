@@ -1,9 +1,21 @@
 <div class="col-md-6 mb-3">
   <div class="card h-100 shadow-sm">
     <div class="card-body">
-      <h5 class="card-title">
-        <%= link_to board.title, board_path(board), class: "text-decoration-none" %>
-      </h5>
+      <div class="d-flex justify-content-between align-items-start mb-3">
+        <h5 class="card-title mb-0">
+          <%= link_to board.title, board_path(board), class: "text-decoration-none" %>
+        </h5>
+        <% if current_user&.own?(board) %>
+          <div class="d-flex gap-1">
+            <%= link_to edit_board_path(board), class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="bi bi-pencil"></i><%= t('defaults.edit') %>
+            <% end %>
+            <%= link_to board_path(board), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: "btn btn-sm btn-outline-danger" do %>
+              <i class="bi bi-trash"></i><%= t('defaults.delete') %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
 
       <small class="text-muted d-block mb-3">
         <%= t('.poster') %>: <%= board.user.nickname %>

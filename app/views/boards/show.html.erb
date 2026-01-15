@@ -4,52 +4,45 @@
       <h1 style="text-align:center"><%= t('.page_name') %></h1>
     </div>
     <div class="col-lg-8 mx-auto">
-      <!-- カフェ詳細カード -->
       <div class="card mb-4">
         <div class="card-body">
-          <!-- タイトルと投稿者情報 -->
           <div class="d-flex justify-content-between align-items-start mb-3">
-            <h1 class="card-title h2 mb-0"><%= @board.title %></h1>
-            <div class="text-end">
-              <% if current_user&.own?(@board) %>
-                <%= link_to '#', class: "btn btn-sm btn-outline-secondary me-1" do %>
-                  <i class="bi bi-pencil"></i><%= t('.edit') %>
+            <h5 class="card-title mb-0">
+              <%= link_to @board.title, board_path(@board), class: "text-decoration-none" %>
+            </h5>
+            <% if current_user&.own?(@board) %>
+              <div class="d-flex gap-1">
+                <%= link_to edit_board_path(@board), class: "btn btn-sm btn-outline-secondary" do %>
+                  <i class="bi bi-pencil"></i><%= t('defaults.edit') %>
                 <% end %>
-                <%= link_to '#', method: :delete, data: { turbo_method: :delete, turbo_confirm: t('.confirm_delete') }, class: "btn btn-sm btn-outline-danger" do %>
-                  <i class="bi bi-trash"></i><%= t('.delete') %>
+                <%= link_to board_path(@board), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: "btn btn-sm btn-outline-danger" do %>
+                  <i class="bi bi-trash"></i><%= t('defaults.delete') %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
 
-          <!-- 投稿者情報 -->
-          <div class="mb-3">
-            <small class="text-muted">
-              <%= t('.poster') %>: <%= @board.user.nickname %> | 
-              <%= t('.post_date') %>: <%= l @board.created_at, format: :long %>
-            </small>
-          </div>
+          <small class="text-muted d-block mb-3">
+            <%= t('.poster') %>: <%= @board.user.nickname %>
+          </small>
 
-          <!-- 本文 -->
-          <div class="card-text mb-4">
-            <ul class="list-unstyled mb-3">
-              <li class="mb-2">
-                <strong><%= t('.address') %>:</strong> <%= @board.address %>
-              </li>
-              <li class="mb-2">
-                <strong><%= t('.nearest_station') %>:</strong> <%= @board.nearest_station %>
-              </li>
-              <li class="mb-2">
-                <strong><%= t('.opening_hours') %>:</strong> <%= @board.opening_hours.presence || t('.no_set') %>
-              </li>
-              <li class="mb-2">
-                <strong><%= t('.smoking_policy') %>:</strong> 
-                <span class="badge bg-secondary">
-                  <%= @board.smoking_policy_i18n %>
-                </span>
-              </li>
-            </ul>
-          </div>
+          <ul class="list-unstyled mb-3">
+            <li class="mb-2">
+              <strong><%= t('.address') %>:</strong> <%= @board.address %>
+            </li>
+            <li class="mb-2">
+              <strong><%= t('.nearest_station') %>:</strong> <%= @board.nearest_station %>
+            </li>
+            <li class="mb-2">
+              <strong><%= t('.opening_hours') %>:</strong> <%= @board.opening_hours.presence || "未設定" %>
+            </li>
+            <li class="mb-2">
+              <strong><%= t('.smoking') %>:</strong> 
+              <span class="badge bg-secondary">
+                <%= @board.smoking_policy_i18n %>
+              </span>
+            </li>
+          </ul>
 
     <% if false %>
           <!-- ブックマークボタン --
