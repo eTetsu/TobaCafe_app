@@ -1,0 +1,136 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 style="text-align:center"><%= t('.page_name') %></h1>
+    </div>
+    <div class="col-lg-8 mx-auto">
+      <!-- カフェ詳細カード -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <!-- タイトルと投稿者情報 -->
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h1 class="card-title h2 mb-0"><%= @board.title %></h1>
+            <div class="text-end">
+              <% if current_user&.own?(@board) %>
+                <%= link_to '#', class: "btn btn-sm btn-outline-secondary me-1" do %>
+                  <i class="bi bi-pencil"></i><%= t('.edit') %>
+                <% end %>
+                <%= link_to '#', method: :delete, data: { turbo_method: :delete, turbo_confirm: t('.confirm_delete') }, class: "btn btn-sm btn-outline-danger" do %>
+                  <i class="bi bi-trash"></i><%= t('.delete') %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- 投稿者情報 -->
+          <div class="mb-3">
+            <small class="text-muted">
+              <%= t('.poster') %>: <%= @board.user.nickname %> | 
+              <%= t('.post_date') %>: <%= l @board.created_at, format: :long %>
+            </small>
+          </div>
+
+          <!-- 本文 -->
+          <div class="card-text mb-4">
+            <ul class="list-unstyled mb-3">
+              <li class="mb-2">
+                <strong><%= t('.address') %>:</strong> <%= @board.address %>
+              </li>
+              <li class="mb-2">
+                <strong><%= t('.nearest_station') %>:</strong> <%= @board.nearest_station %>
+              </li>
+              <li class="mb-2">
+                <strong><%= t('.opening_hours') %>:</strong> <%= @board.opening_hours.presence || t('.no_set') %>
+              </li>
+              <li class="mb-2">
+                <strong><%= t('.smoking_policy') %>:</strong> 
+                <span class="badge bg-secondary">
+                  <%= @board.smoking_policy_i18n %>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+    <% if false %>
+          <!-- ブックマークボタン --
+          <div class="mb-3">
+            <%= render 'bookmarks/bookmark_button', board: @board %>
+          </div>
+        </div>
+      </div>
+      -->
+      <!--
+      <!- レビュー(コメント)セクション --
+      <div class="card">
+        <div class="card-header bg-light">
+          <h3 class="h5 mb-0">
+            <i class="bi bi-chat-dots me-2"></i>レビュー
+            <span class="badge bg-secondary"><%= @board.reviews.count %></span>
+          </h3>
+        </div>
+
+        <div class="card-body">
+          <!- レビュー投稿フォーム --
+          <% if logged_in? %>
+            <div class="mb-4">
+              <h4 class="h6 mb-3">レビューを投稿する</h4>
+              <form action="#" method="post">
+                <div class="mb-3">
+                  <textarea class="form-control" rows="3" placeholder="このカフェの感想を書いてください" required></textarea>
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send me-1"></i>投稿する
+                  </button>
+                </div>
+              </form>
+            </div>
+            <hr>
+          <% end %>
+
+          <!- レビュー一覧 --
+          <div class="reviews-list">
+            <% if @board.reviews.present? %>
+              <% @board.reviews.each do |review| %>
+                <div class="review-item mb-4 pb-3 border-bottom">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                      <strong><%= review.user.decorate.full_name %></strong>
+                      <small class="text-muted ms-2">
+                        <%= l review.created_at, format: :short %>
+                      </small>
+                    </div>
+                    <% if current_user&.own?(review) %>
+                      <div class="btn-group btn-group-sm">
+                        <a href="#" class="btn btn-outline-secondary">
+                          <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-danger" data-turbo-method="delete" data-turbo-confirm="削除してもよろしいですか？">
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </div>
+                    <% end %>
+                  </div>
+                  <p class="mb-0"><%= simple_format(review.body) %></p>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="text-center text-muted py-4">
+                <i class="bi bi-chat-dots fs-1 d-block mb-2"></i>
+                <p>まだレビューがありません。最初のレビューを投稿してみませんか？</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div> -->
+    <% end %>
+
+      <!-- 戻るボタン -->
+      <div class="mt-4">
+        <%= link_to boards_path, class: "btn btn-outline-secondary" do %>
+          <i class="bi bi-arrow-left me-1"></i>一覧に戻る
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

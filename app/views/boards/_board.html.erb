@@ -2,7 +2,7 @@
   <div class="card h-100 shadow-sm">
     <div class="card-body">
       <h5 class="card-title">
-        <%= link_to board.title, '#', class: "text-decoration-none" %>
+        <%= link_to board.title, board_path(board), class: "text-decoration-none" %>
       </h5>
 
       <small class="text-muted d-block mb-3">
@@ -27,7 +27,7 @@
         </li>
       </ul>
 
-      <%= link_to t('.show_details'), '#', class: "btn btn-outline-primary btn-sm w-100" %>
+      <%= link_to t('.show_details'), board_path(board), class: "btn btn-outline-primary btn-sm w-100" %>
     </div>
 
     <div class="card-footer text-muted">

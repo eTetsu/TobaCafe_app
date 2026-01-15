@@ -29,16 +29,23 @@ ja:
       show_details: 詳細を見る
     index:
       title: カフェ一覧
-      new_board: 新規カフェ登録
+      new_board: 新しいカフェを投稿する
       no_boards: カフェが登録されていません
       board_count_info: "%{count}件のカフェ"
     show:
-      title: カフェ詳細
+      page_name: カフェ詳細
+      poster: 投稿者
+      post_date: 投稿日
+      address: 住所
+      nearest_station: 最寄駅
+      opening_hours: 営業時間
+      smoking_policy: 喫煙形態
+      no_set: 不明
       edit: 編集
       delete: 削除
       confirm_delete: 本当に削除しますか?
     new:
-      add_board_page: カフェ登録
+      page_name: カフェ登録
       title: カフェ名
       address: 住所
       nearest_station: 最寄駅
