@@ -9,6 +9,13 @@ ja:
       password: パスワード
     select:
       prompt: 選択してください
+  defaults:
+    edit: 編集
+    delete: 削除
+    delete_confirm: 本当に削除しますか?
+    flash_message:
+      created:
+
   user_sessions:
     new:
       title: ユーザー登録
@@ -40,10 +47,7 @@ ja:
       nearest_station: 最寄駅
       opening_hours: 営業時間
       smoking_policy: 喫煙形態
-      no_set: 不明
-      edit: 編集
-      delete: 削除
-      confirm_delete: 本当に削除しますか?
+      no_set: 未設定
     new:
       page_name: カフェ登録
       title: カフェ名
@@ -53,7 +57,8 @@ ja:
       smoking_policy: 喫煙形態
       back_to_index: カフェ一覧に戻る
     edit:
-      title: カフェ情報編集
+      page_name: カフェの編集
+      back_to_detail: カフェ詳細へ戻る
     form:
       submit: 登録
       update: 更新

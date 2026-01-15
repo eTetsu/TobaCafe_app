@@ -1,12 +1,8 @@
 class BoardsController < ApplicationController
-  skip_before_action :require_login, only: %i[index]
+  skip_before_action :require_login, only: %i[index show]
 
   def index
     @boards = Board.includes(:user).order(created_at: :desc).page(params[:page])
-  end
-
-  def show
-    @board = Board.includes(:user).find(params[:id])
   end
 
   def new
@@ -19,9 +15,34 @@ class BoardsController < ApplicationController
     if @board.save
       redirect_to boards_path, success: "カフェの登録に成功しました"
     else
-      flash.now[:danger] = "カフェの登録に失敗しました。"
+      flash.now[:danger] = "カフェの登録に失敗しました"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @board = Board.includes(:user).find(params[:id])
+  end
+
+  def edit
+    @board = current_user.boards.find(params[:id])
+  end
+
+  def update
+    @board = current_user.boards.find(params[:id])
+
+    if @board.update(board_params)
+      redirect_to board_path(@board), success: "更新が完了しました"
+    else
+      flash.now[:danger] = "編集に失敗しました"
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    board = current_user.find(params[:id])
+    board.destroy!
+    redirect_to boards_path, success: "削除に成功しました", status: :see_other
   end
 
   private

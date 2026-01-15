@@ -4,7 +4,7 @@
       <h1 style="text-align:center"><%= t('.page_name') %></h1>
       <%= render 'form', board: @board %>
       <div class='text-center mt-3'>
-        <%= link_to t('.back_to_index'), boards_path %>
+        <%= link_to t('.back_to_detail'), board_path(@board) %>
       </div>
     </div>
   </div>
