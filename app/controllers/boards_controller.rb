@@ -22,6 +22,8 @@ class BoardsController < ApplicationController
 
   def show
     @board = Board.includes(:user).find(params[:id])
+    @review = current_user.reviews.find_or_initialize_by(board: @board) if current_user
+    @reviews = @board.reviews.includes(:user).order(created_at: :desc)
   end
 
   def edit

@@ -44,81 +44,38 @@
             </li>
           </ul>
 
-    <% if false %>
+        <% if false %>
           <!-- ブックマークボタン --
           <div class="mb-3">
             <%= render 'bookmarks/bookmark_button', board: @board %>
           </div>
+          -->
+        <% end %>
         </div>
       </div>
-      -->
-      <!--
-      <!- レビュー(コメント)セクション --
-      <div class="card">
-        <div class="card-header bg-light">
-          <h3 class="h5 mb-0">
-            <i class="bi bi-chat-dots me-2"></i>レビュー
-            <span class="badge bg-secondary"><%= @board.reviews.count %></span>
-          </h3>
-        </div>
 
-        <div class="card-body">
-          <!- レビュー投稿フォーム --
-          <% if logged_in? %>
-            <div class="mb-4">
-              <h4 class="h6 mb-3">レビューを投稿する</h4>
-              <form action="#" method="post">
-                <div class="mb-3">
-                  <textarea class="form-control" rows="3" placeholder="このカフェの感想を書いてください" required></textarea>
+      <div class="row mt-4">
+        <div class="col-lg-8 mx-auto">
+          <h4 class="mb-3"><%= "レビュー" %></h4>
+          <% if current_user %>
+            <% if @review.persisted? %>
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">あなたのレビュー</h5>
+                  <%= render 'reviews/review', review: @review %>
                 </div>
-                <div class="text-end">
-                  <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-send me-1"></i>投稿する
-                  </button>
-                </div>
-              </form>
-            </div>
-            <hr>
+              </div>
+            <% else %>
+              <%= render 'reviews/form', board: @board, review: @review %>
+            <% end %>
           <% end %>
 
-          <!- レビュー一覧 --
-          <div class="reviews-list">
-            <% if @board.reviews.present? %>
-              <% @board.reviews.each do |review| %>
-                <div class="review-item mb-4 pb-3 border-bottom">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                      <strong><%= review.user.decorate.full_name %></strong>
-                      <small class="text-muted ms-2">
-                        <%= l review.created_at, format: :short %>
-                      </small>
-                    </div>
-                    <% if current_user&.own?(review) %>
-                      <div class="btn-group btn-group-sm">
-                        <a href="#" class="btn btn-outline-secondary">
-                          <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="#" class="btn btn-outline-danger" data-turbo-method="delete" data-turbo-confirm="削除してもよろしいですか？">
-                          <i class="bi bi-trash"></i>
-                        </a>
-                      </div>
-                    <% end %>
-                  </div>
-                  <p class="mb-0"><%= simple_format(review.body) %></p>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="text-center text-muted py-4">
-                <i class="bi bi-chat-dots fs-1 d-block mb-2"></i>
-                <p>まだレビューがありません。最初のレビューを投稿してみませんか？</p>
-              </div>
-            <% end %>
+          <div id="reviews-list" class="mt-4">
+            <%= render @reviews %>
           </div>
         </div>
-      </div> -->
-    <% end %>
+      </div>
 
-      <!-- 戻るボタン -->
       <div class="mt-4">
         <%= link_to boards_path, class: "btn btn-outline-secondary" do %>
           <i class="bi bi-arrow-left me-1"></i>一覧に戻る

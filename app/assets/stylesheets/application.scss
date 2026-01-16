@@ -34,3 +34,28 @@ footer {
 .bg-custom-gray {
   background-color: #d8d8d8 !important; /* お好みの色コードに変更 */
 }
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.star-input {
+  display: none;
+}
+
+.star-label {
+  color: #ddd;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: color 0.2s;
+}
+
+.star-input:checked ~ .star-label,
+.star-label:hover,
+.star-label:hover ~ .star-label {
+  color: #ffc107;
+}
