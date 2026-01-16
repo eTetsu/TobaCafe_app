@@ -1,0 +1,15 @@
+<div class="card mb-2">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <strong><%= review.user.nickname %></strong>
+      <small class="text-muted"><%= l review.created_at, format: :short %></small>
+    </div>
+    <div class="my-2">
+      <span class="text-warning">
+        <%= "★" * review.workability_rating %><%= "☆" * (5 - review.workability_rating) %>
+      </span>
+      <small class="text-muted">(<%= review.workability_rating %>/5)</small>
+    </div>
+    <p class="mb-0"><%= simple_format(review.comment) %></p>
+  </div>
+</div>
