@@ -1,66 +1,74 @@
 # syntax = docker/dockerfile:1
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t my-app .
-# docker run -d -p 80:80 -p 443:443 --name my-app -e RAILS_MASTER_KEY=<value from config/master.key> my-app
+# ===== ビルドステージ =====
+FROM ruby:3.3.6 AS builder
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.3.6
-FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
+ENV LANG=C.UTF-8 \
+    TZ=Asia/Tokyo \
+    RAILS_ENV=production
 
-# Rails app lives here
-WORKDIR /rails
+WORKDIR /app
 
-# Install base packages
+# 必要なパッケージのインストール
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl libjemalloc2 libvips postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    apt-get install --no-install-recommends -y \
+      ca-certificates \
+      curl \
+      gnupg \
+      postgresql-client \
+      build-essential \
+      libyaml-dev \
+      libvips \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+# Node.js & Yarnのインストール
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g yarn && \
+    rm -rf /var/lib/apt/lists/*
 
-# Throw-away build stage to reduce size of final image
-FROM base AS build
-
-# Install packages needed to build gems
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Install application gems
+# Gemのインストール
 COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+RUN bundle config set --local deployment 'true' && \
+    bundle config set --local without 'development test' && \
+    bundle install
 
-# Copy application code
+# アプリケーションコードのコピー
 COPY . .
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
+# JavaScriptパッケージのインストール
+RUN yarn install --frozen-lockfile
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# アセットプリコンパイル
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
-# Final stage for app image
-FROM base
+# ===== 実行ステージ =====
+FROM ruby:3.3.6-slim
 
-# Copy built artifacts: gems, application
-COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
-COPY --from=build /rails /rails
+ENV LANG=C.UTF-8 \
+    TZ=Asia/Tokyo \
+    RAILS_ENV=production
 
-# Run and own only the runtime files as a non-root user for security
+WORKDIR /app
+
+# ランタイムに必要なパッケージのみインストール
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      ca-certificates \
+      postgresql-client \
+      libvips \
+    && rm -rf /var/lib/apt/lists/*
+
+# ユーザー作成
 RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER 1000:1000
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# ビルドステージからファイルをコピー
+COPY --from=builder --chown=rails:rails /usr/local/bundle /usr/local/bundle
+COPY --from=builder --chown=rails:rails /app /app
 
-# Start the server by default, this can be overwritten at runtime
+USER rails
+
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+
+CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec rails server -p $PORT -b '0.0.0.0'"]
