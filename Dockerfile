@@ -5,8 +5,7 @@ FROM ruby:3.3.6 AS builder
 
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
-    RAILS_ENV=production \
-    NODE_ENV=production
+    RAILS_ENV=production
 
 WORKDIR /app
 
@@ -37,13 +36,9 @@ RUN bundle config set --local deployment 'true' && \
 # アプリケーションコードのコピー
 COPY . .
 
-# JavaScriptパッケージのインストール
-RUN yarn install --frozen-lockfile
-
-# ★ アセットプリコンパイル（環境変数を追加）
+# アセットプリコンパイル
 RUN SECRET_KEY_BASE_DUMMY=1 \
-    RAILS_ENV=production \
-    NODE_ENV=production \
+    DATABASE_URL=nulldb://localhost \
     bundle exec rails assets:precompile
 
 # ===== 実行ステージ =====
@@ -75,4 +70,4 @@ USER rails
 
 EXPOSE 3000
 
-CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec rails server -p $PORT -b '0.0.0.0'"]
+CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec puma -C config/puma.rb"]
