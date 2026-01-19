@@ -18,6 +18,6 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new create]
   resources :boards, only: %i[index new create show edit update destroy] do
-    resources :reviews, only: %i[create edit destroy], shalow: true
+    resources :reviews, only: %i[create edit update destroy], shallow: true
   end
 end
