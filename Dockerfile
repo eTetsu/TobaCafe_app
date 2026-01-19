@@ -38,7 +38,7 @@ COPY . .
 
 # アセットプリコンパイル
 RUN SECRET_KEY_BASE_DUMMY=1 \
-    DATABASE_URL=nulldb://localhost \
+    RAILS_ENV=production \
     bundle exec rails assets:precompile
 
 # ===== 実行ステージ =====
