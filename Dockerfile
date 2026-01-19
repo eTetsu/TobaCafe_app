@@ -5,7 +5,8 @@ FROM ruby:3.3.6 AS builder
 
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
-    RAILS_ENV=production
+    RAILS_ENV=production \
+    NODE_ENV=production
 
 WORKDIR /app
 
@@ -39,8 +40,12 @@ COPY . .
 # JavaScriptパッケージのインストール
 RUN yarn install --frozen-lockfile
 
-# アセットプリコンパイル
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+# ★ アセットプリコンパイル（環境変数を追加）
+RUN SECRET_KEY_BASE_DUMMY=1 \
+    RAILS_ENV=production \
+    NODE_ENV=production \
+    bundle exec rails assets:precompile && \
+    bundle exec rails assets:clean
 
 # ===== 実行ステージ =====
 FROM ruby:3.3.6-slim
