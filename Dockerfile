@@ -44,7 +44,7 @@ RUN yarn install --frozen-lockfile
 RUN SECRET_KEY_BASE_DUMMY=1 \
     RAILS_ENV=production \
     NODE_ENV=production \
-    bundle exec rails assets:precompile &&
+    bundle exec rails assets:precompile
 
 # ===== 実行ステージ =====
 FROM ruby:3.3.6-slim
