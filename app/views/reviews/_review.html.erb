@@ -1,8 +1,20 @@
 <div class="card mb-2">
   <div class="card-body">
-    <div class="d-flex justify-content-between">
-      <strong><%= review.user.nickname %></strong>
-      <small class="text-muted"><%= l review.created_at, format: :short %></small>
+    <div class="d-flex justify-content-between align-items-start mb-2">
+      <div>
+        <strong><%= review.user.nickname %></strong>
+        <small class="text-muted ms-2"><%= l review.created_at, format: :short %></small>
+      </div>
+      <% if current_user&.own?(review) %>
+        <div class="d-flex gap-1">
+          <%= link_to edit_review_path(review), class: "btn btn-sm btn-outline-secondary" do %>
+            <i class="bi bi-pencil"></i><%= t('defaults.edit') %>
+          <% end %>
+          <%= link_to review_path(review), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: "btn btn-sm btn-outline-danger" do %>
+            <i class="bi bi-trash"></i><%= t('defaults.delete') %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="my-2">
       <span class="text-warning">
