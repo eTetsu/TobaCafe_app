@@ -35,6 +35,9 @@ RUN bundle config set --local deployment 'true' && \
 # アプリケーションコードのコピー
 COPY . .
 
+# yarn install を実行
+RUN yarn install --frozen-lockfile
+
 # アセットプリコンパイル
 RUN bundle exec rails assets:precompile
 
