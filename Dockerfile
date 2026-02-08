@@ -1,10 +1,10 @@
 # syntax = docker/dockerfile:1
 
-# ===== ビルドステージ =====
-FROM ruby:3.3.6 AS builder
+FROM ruby:3.3.6
 
 ENV LANG=C.UTF-8 \
-    TZ=Asia/Tokyo
+    TZ=Asia/Tokyo \
+    RAILS_ENV=production
 
 WORKDIR /app
 
@@ -40,33 +40,6 @@ RUN yarn install --frozen-lockfile
 
 # アセットプリコンパイル
 RUN bundle exec rails assets:precompile
-
-# ===== 実行ステージ =====
-FROM ruby:3.3.6-slim
-
-ENV LANG=C.UTF-8 \
-    TZ=Asia/Tokyo \
-    RAILS_ENV=production
-
-WORKDIR /app
-
-# ランタイムに必要なパッケージのみインストール
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-      ca-certificates \
-      postgresql-client \
-      libvips \
-    && rm -rf /var/lib/apt/lists/*
-
-# ユーザー作成
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
-
-# ビルドステージからファイルをコピー
-COPY --from=builder --chown=rails:rails /usr/local/bundle /usr/local/bundle
-COPY --from=builder --chown=rails:rails /app /app
-
-USER rails
 
 EXPOSE 3000
 
