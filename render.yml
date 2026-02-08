@@ -1,16 +1,8 @@
-databases:
-  - name: TobaCafe_app
-    databaseName: TobaCafe_app
-    user: TobaCafe_app
-    plan: free
-
 services:
   - type: web
     name: TobaCafe_app
     runtime: docker
     plan: free
-    buildCommand: './bin/render-build.sh'
-    startCommand: 'bundle exec puma -C config/puma.rb'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
