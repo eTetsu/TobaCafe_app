@@ -1,0 +1,28 @@
+databases:
+  - name: TobaCafe_app
+    databaseName: TobaCafe_app
+    user: TobaCafe_app
+    plan: free
+
+services:
+  - type: web
+    name: TobaCafe_app
+    runtime: docker
+    plan: free
+    buildCommand: './bin/render-build.sh'
+    startCommand: 'bundle exec puma -C config/puma.rb'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: TobaCafe_app
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: enabled
+      - key: RAILS_SERVE_STATIC_FILES
+        value: enabled
+      - key: WEB_CONCURRENCY
+        value: 2
