@@ -39,6 +39,7 @@ COPY . .
 RUN yarn install --frozen-lockfile
 
 # アセットプリコンパイル
+ENV SECRET_KEY_BASE=dummy
 RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
