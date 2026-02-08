@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   pull_request:
@@ -99,3 +99,11 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+# deploy:
+#   needs: [ scan_ruby, scan_js, lint, test ]  # 全てのチェックが成功したら
+#   runs-on: ubuntu-latest
+#   if: github.ref == 'refs/heads/main'  # main ブランチのみ
+#   steps:
+#     - name: Deploy to Render
+#       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
