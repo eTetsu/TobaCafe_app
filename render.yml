@@ -1,4 +1,4 @@
-services:
+sservices:
   - type: web
     name: TobaCafe_app
     runtime: docker
@@ -9,6 +9,8 @@ services:
           name: TobaCafe_app
           property: connectionString
       - key: RAILS_MASTER_KEY
+        sync: false
+      - key: SECRET_KEY_BASE
         sync: false
       - key: RAILS_ENV
         value: production
