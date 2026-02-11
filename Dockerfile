@@ -36,10 +36,14 @@ RUN bundle config set --local deployment 'true' && \
 # アプリケーションコードのコピー
 COPY . .
 
+# ビルド時の引数として RAILS_MASTER_KEY を受け取る
+ARG RAILS_MASTER_KEY
+
 # アセットプリコンパイル
 RUN SECRET_KEY_BASE=dummy \
     DATABASE_URL=nulldb://user:pass@localhost/db \
     RAILS_ENV=production \
+    RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \
     bundle exec rails assets:precompile
 
 # ===== 実行ステージ =====
