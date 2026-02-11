@@ -41,9 +41,9 @@ ARG RAILS_MASTER_KEY
 
 # アセットプリコンパイル
 RUN SECRET_KEY_BASE=dummy \
-    DATABASE_URL=nulldb://user:pass@localhost/db \
     RAILS_ENV=production \
     RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \
+    DATABASE_URL=postgresql://dummy:dummy@localhost/dummy \
     bundle exec rails assets:precompile
 
 # ===== 実行ステージ =====
