@@ -1,4 +1,4 @@
-sservices:
+services:
   - type: web
     name: TobaCafe_app
     runtime: docker
