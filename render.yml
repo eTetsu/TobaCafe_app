@@ -3,6 +3,7 @@ services:
     name: TobaCafe_app
     runtime: docker
     plan: free
+    region: singapore
     envVars:
       - key: DATABASE_URL
         fromDatabase:
