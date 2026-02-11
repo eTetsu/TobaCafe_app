@@ -73,7 +73,7 @@ RUN mkdir -p tmp/pids tmp/sockets log && \
     chown -R rails:rails tmp log
 
 # entrypoint.sh のコピーと権限設定
-COPY --chown=rails:rails entrypoint.sh /usr/bin/
+COPY --chown=rails:rails bin/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
 USER rails
